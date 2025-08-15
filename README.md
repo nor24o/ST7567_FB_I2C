@@ -2,6 +2,7 @@
 I2C graphics library for ST7567 128x64 LCD with frame buffer.
 
 ![ST7567S LCD back view](https://raw.githubusercontent.com/nor24o/ST7567_FB_I2C/main/doc/128X64_I2C_ST7567S_back.png)
+![ST7567S LCD working state](https://github.com/nor24o/ST7567_FB_I2C/blob/main/doc/Working.jpg)
 
 ## Features
 
