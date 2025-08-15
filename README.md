@@ -23,7 +23,7 @@ I2C graphics library for ST7567 128x64 LCD with frame buffer.
 ## Connections:
 
 
-|LCD pin|LCD pin name|Arduino|
+|LCD pin|LCD pin name|Arduino,ESP32|
 |--|--|--|
  |#01| SDA| A4, 9|
  |#02| SCL| A5,6|
