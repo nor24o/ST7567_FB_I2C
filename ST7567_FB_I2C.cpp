@@ -169,12 +169,24 @@ void ST7567_FB_I2C::displayMode(byte val) {
 }
 // ----------------------------------------------------------------
 void ST7567_FB_I2C::display() {
-  for(uint8_t y8 = 0; y8 < SCR_HT8; y8++) {
+  const uint8_t chunk_size = 64; // We will send the data in 64-byte chunks
+  
+  for (uint8_t y8 = 0; y8 < SCR_HT8; y8++) {
     gotoXY(rotation ? 4 : 0, y8);
-    Wire.beginTransmission(i2cAddr);
-    Wire.write(I2C_DATA_MODE);
-    Wire.write(scr + (y8 * SCR_WD), SCR_WD);
-    Wire.endTransmission();
+    
+    // Send the 128-byte row in two 64-byte chunks
+    for (uint8_t i = 0; i < 2; i++) {
+      Wire.beginTransmission(i2cAddr);
+      Wire.write(I2C_DATA_MODE);
+      
+      // Calculate the starting point in the buffer for the current chunk
+      uint16_t offset = (y8 * SCR_WD) + (i * chunk_size);
+      
+      // Use the block-write function, which is efficient and safe with a smaller size
+      Wire.write(scr + offset, chunk_size);
+      
+      Wire.endTransmission();
+    }
   }
 }
 // ----------------------------------------------------------------
